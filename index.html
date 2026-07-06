@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#ffdd00">
+  <title>Selin Bingo</title>
+  <meta name="description" content="Peter & Christian Selin -bingo Tour de Francen selostuksiin.">
+
+  <!-- Social share (Open Graph + Twitter). NOTE: replace https://example.com
+       below with the real URL where this is hosted — most platforms require
+       an absolute image URL to show the preview. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Selin Bingo">
+  <meta property="og:description" content="Seuraa Tour de Francea Peter ja Christian Selinin selostamana ja merkkaa sanonnat bingoruudukkoon.">
+  <meta property="og:image" content="https://example.com/tour-de-france.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="1023">
+  <meta property="og:image:alt" content="Tour de France -logo">
+  <meta property="og:url" content="https://example.com/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Selin Bingo">
+  <meta name="twitter:description" content="Seuraa Tour de Francea Peter ja Christian Selinin selostamana ja merkkaa sanonnat bingoruudukkoon.">
+  <meta name="twitter:image" content="https://example.com/tour-de-france.jpg">
+  <meta name="twitter:image:alt" content="Tour de France -logo">
+
+  <link rel="icon" href="tour-de-france.webp">
+  <link rel="apple-touch-icon" href="tour-de-france.webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1 class="title">Selin Bingo</h1>
+      <p class="subtitle">Tour de France</p>
+    </header>
+
+    <section class="intro">
+      <p>Jos seuraat Tour de Francea legendaaristen Peter ja Christian Selinin
+        selostamana, niin voit pitkien puuduttavien etappien aikana viihdyttää
+        itseäsi tällä bingolla.</p>
+      <p>Seuraa lähetystä &mdash; jos kuulet jonkun sanonnan, merkkaa se ruudukkoon.</p>
+    </section>
+
+    <div id="banner" class="banner" hidden></div>
+
+    <main id="board" class="board" aria-label="Bingo-ruudukko"></main>
+
+    <footer class="footer">
+      <p id="progress" class="progress"></p>
+      <button id="reset" class="reset-btn" type="button">Aloita uusi peli</button>
+    </footer>
+  </div>
+
+  <script src="sayings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
