@@ -1,5 +1,5 @@
 /*
- * Selin Bingo — game logic
+ * Selin-bingo — game logic
  * Static, no build step, no dependencies. Works from file:// too.
  */
 

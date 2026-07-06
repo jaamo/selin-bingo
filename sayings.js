@@ -1,5 +1,5 @@
 /*
- * Peter & Christian Selin Bingo — sayings list
+ * Peter & Christian Selin-bingo — sayings list
  * ---------------------------------------------
  * Add / edit sayings here, one per line, inside quotes.
  *
