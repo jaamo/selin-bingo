@@ -15,7 +15,7 @@
 const SAYINGS = [
   "\"Oho\"",
   "\"Oijoijoi\"",
-  "\"Kestävyysurheilun kuninkaat\"",
+  "\"Kestävyys-urheilun kuninkaat\"",
   "\"Tällaista on pyöräilyn seuraaminen\"",
   "\"Laadukas brittistudio\"",
   "\"Jalo juoma\"",

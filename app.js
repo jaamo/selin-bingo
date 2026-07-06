@@ -21,7 +21,8 @@ const centerIndex   = hasFreeCenter
   ? Math.floor(GRID_SIZE / 2) * GRID_SIZE + Math.floor(GRID_SIZE / 2)
   : -1;
 
-let state = null; // { board: string[], checked: boolean[] }
+let state = null;      // { board: string[], checked: boolean[] }
+let gameDay = null;    // local calendar day the board was created (see todayKey)
 
 // ---- Persistence ---------------------------------------------------
 // Signature so the saved game resets if the sayings pool changes.
@@ -29,10 +30,18 @@ function sayingsSignature() {
   return `${SAYINGS.length}:${GRID_SIZE}:${hasFreeCenter}`;
 }
 
+// Local calendar day key, e.g. "2026-7-6". Used to auto-reset the game
+// each day: a board created on a different day is discarded.
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+
 function save() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       sig: sayingsSignature(),
+      day: gameDay,
       board: state.board,
       checked: state.checked,
     }));
@@ -45,8 +54,10 @@ function load() {
     if (!raw) return null;
     const data = JSON.parse(raw);
     if (data.sig !== sayingsSignature()) return null;
+    if (data.day !== todayKey()) return null; // yesterday's game — discard it
     if (!Array.isArray(data.board) || data.board.length !== GRID_SIZE * GRID_SIZE) return null;
     if (!Array.isArray(data.checked) || data.checked.length !== data.board.length) return null;
+    gameDay = data.day;
     return { board: data.board, checked: data.checked };
   } catch (e) {
     return null;
@@ -84,6 +95,7 @@ function newGame() {
   }
 
   state = { board, checked };
+  gameDay = todayKey();
   save();
   render();
 }
@@ -199,6 +211,14 @@ function toggle(i) {
 
 resetBtn.addEventListener("click", () => {
   if (confirm("Aloitetaanko uusi peli? Nykyiset merkinnät nollataan.")) {
+    newGame();
+  }
+});
+
+// Auto-reset a board left open past midnight: when the tab becomes visible
+// again on a new calendar day, start a fresh game.
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && state && gameDay && gameDay !== todayKey()) {
     newGame();
   }
 });
