@@ -24,8 +24,8 @@ const SAYINGS = [
   "\"Raateleva nousu\"",
   "Peter ei vastaa mitään Christianin kysymykseen",
   "Lause, josta ei saa mitään selvää",
-  "\"Aivan käsittämätön suoritus\"",
+  "\"Aivan käsit-tämätön suoritus\"",
   "Kiusallisen pitkä tauko kesken lauseen",
   "\"Mainokset odottavat, että niitä katsotaan\"",
-  "\"Kuvapinta\"",
+  "\"Kuva-pinta\"",
 ];

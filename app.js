@@ -13,6 +13,7 @@ const boardEl    = document.getElementById("board");
 const bannerEl   = document.getElementById("banner");
 const progressEl = document.getElementById("progress");
 const resetBtn   = document.getElementById("reset");
+const dayNoticeEl = document.getElementById("dayNotice");
 
 // A free space works on any grid size. For even grids there's no true
 // single center, so we use a central-ish cell.
@@ -21,8 +22,9 @@ const centerIndex   = hasFreeCenter
   ? Math.floor(GRID_SIZE / 2) * GRID_SIZE + Math.floor(GRID_SIZE / 2)
   : -1;
 
-let state = null;      // { board: string[], checked: boolean[] }
-let gameDay = null;    // local calendar day the board was created (see todayKey)
+let state = null;              // { board: string[], checked: boolean[] }
+let gameDay = null;            // local calendar day the board was created (see todayKey)
+let discardedStaleGame = false; // true when load() threw away yesterday's board
 
 // ---- Persistence ---------------------------------------------------
 // Signature so the saved game resets if the sayings pool changes.
@@ -54,7 +56,10 @@ function load() {
     if (!raw) return null;
     const data = JSON.parse(raw);
     if (data.sig !== sayingsSignature()) return null;
-    if (data.day !== todayKey()) return null; // yesterday's game — discard it
+    if (data.day !== todayKey()) {            // yesterday's game — discard it
+      discardedStaleGame = true;
+      return null;
+    }
     if (!Array.isArray(data.board) || data.board.length !== GRID_SIZE * GRID_SIZE) return null;
     if (!Array.isArray(data.checked) || data.checked.length !== data.board.length) return null;
     gameDay = data.day;
@@ -187,6 +192,16 @@ window.addEventListener("resize", () => {
   if (state) fitBoardText();
 });
 
+// Shown once when a new calendar day cleared the previous board.
+let dayNoticeTimer = null;
+function showDayNotice() {
+  dayNoticeEl.textContent = "Uusi päivä, uusi bingo! 🚴 Eilisen ruudukko nollattiin.";
+  dayNoticeEl.hidden = false;
+  if (dayNoticeTimer) clearTimeout(dayNoticeTimer);
+  dayNoticeTimer = setTimeout(() => { dayNoticeEl.hidden = true; }, 8000);
+}
+dayNoticeEl.addEventListener("click", () => { dayNoticeEl.hidden = true; });
+
 function showBanner(msg) {
   bannerEl.textContent = msg;
   bannerEl.hidden = false;
@@ -220,6 +235,7 @@ resetBtn.addEventListener("click", () => {
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden && state && gameDay && gameDay !== todayKey()) {
     newGame();
+    showDayNotice();
   }
 });
 
@@ -240,6 +256,7 @@ document.addEventListener("visibilitychange", () => {
   state = load();
   if (!state) {
     newGame();
+    if (discardedStaleGame) showDayNotice();
   } else {
     render();
   }
