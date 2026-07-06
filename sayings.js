@@ -28,4 +28,9 @@ const SAYINGS = [
   "Kiusallisen pitkä tauko kesken lauseen",
   "\"Mainokset odottavat, että niitä katsotaan\"",
   "\"Kuva-pinta\"",
+  "\"Maailman kaunein lippu\"",
+  "Saimaa Cycle Tour mainitaan",
+  "\"Nakkimakkaran mittainen\"",
+  "\"Pedaalipoweri\"",
+  "\"Pitkän linjan ketjunpyörittäjä\"",
 ];
