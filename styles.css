@@ -54,6 +54,12 @@ body {
   color: var(--muted);
   letter-spacing: 0.5px;
 }
+.divider {
+  display: inline-block;
+  margin: 0 8px;
+  color: var(--yellow);
+  transform: translateY(-1px);
+}
 
 /* Intro */
 .intro {
